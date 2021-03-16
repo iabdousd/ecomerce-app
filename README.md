@@ -1,4 +1,4 @@
-# ecomerce
+# rimlines
 
 A new Flutter project.
 

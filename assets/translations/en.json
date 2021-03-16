@@ -1,0 +1,112 @@
+{
+    "login": {
+        "title": "Sign in",
+        "username": {
+            "label": "Username",
+            "hint": "Please enter your username",
+            "errors": {
+                "empty": "Username is required",
+                "minimum": "Username should be atleast 8 characters",
+                "unformal": "Invalid username"
+            }
+        },
+        "password": {
+            "label": "Password",
+            "hint": "Please enter your password",
+            "errors": {
+                "empty": "Password is required",
+                "minimum": "Password should be atleast 8 characters",
+                "unformal": "Invalid password"
+            }
+        },
+        "messages": {
+            "error-title": "Login Error"
+        },
+        "submit": "Login"
+    },
+    "dashboard": {
+        "hello": "Hello, {name}",
+        "balance-title": "Total balance:"
+    },
+    "creation": {
+        "title": "Creation Page",
+        "topup": "Create Top-Up",
+        "order": "Declare an order",
+        "bank-deposit": "Declare a Bank deposit",
+        "late-topup-report": "Report a late Top-up",
+        "order-mistake-report": "Report an order fulfillment mistake",
+        "messages": {
+            "topup": {
+                "success-title": "Top-up Succeed",
+                "success-message": "Top-up was added successfully",
+                "error-title": "Top-up Error"
+            },
+            "order": {
+                "success-title": "Order Added",
+                "success-message": "Order was added successfully",
+                "error-title": "Order Error"
+            }
+        }
+    },
+    "tools": {
+        "title": "Tools",
+        "disconnect": "Disconnect"
+    },
+    "form": {
+        "topup": {
+            "phone": {
+                "label": "Top-up receiver",
+                "hint": "Enter the phone number of the top-up",
+                "required-msg": "The receiver phone number is required!"    
+            },
+            "amount": {
+                "label": "Top-up amount",
+                "hint": "Enter the top-up amount",
+                "required-msg": "The top-up amount is required!",
+                "invalid-msg": "The top-up amount is invalid!"
+            },
+            "submit": {
+                "button-title": "Add Top-up"
+            }
+        },
+        "order": {
+            "phone": {
+                "label": "Customer phone number",
+                "hint": "Enter the phone number of the customer",
+                "required-msg": "The customer phone number is required!"    
+            },
+            "product": {
+                "label": "Select product",
+                "hint": "Choose the product of the order",
+                "required-msg": "A product is required!"    
+            },
+            "note": {
+                "label": "Order note",
+                "hint": "Enter the note of the order",
+                "required-msg": "The note isn't supposed to be empty!"
+            },
+            "quantity": {
+                "label": "Product quantity",
+                "hint": "Enter the product quantity",
+                "required-msg": "The product quantity is required!",
+                "invalid-msg": "The product quantity is invalid!"
+            },
+            "submit": {
+                "button-title": "Declare the order"
+            }
+        }
+    },
+    "transaction": {
+        "list-title": "Transactions:",
+        "cancel": {
+            "button-title": "Cancel",
+            "alert-title": "Cancel transaction",
+            "alert-content": "Would you really like to cancel this transaction?",
+            "submit": "Cancel",
+            "cancel": "Keep"
+        }
+    },
+    "errors": {
+        "unknown": "Unknown error, please try again later."
+    }
+}

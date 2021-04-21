@@ -99,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
                                 return "login.username.errors.empty".tr();
                               } else if (v.length < 8) {
                                 return "login.username.errors.minimum".tr();
-                              } else if (double.parse(v, (e) => null) == null) {
+                              } else if (double.tryParse(v) == null) {
                                 return "login.username.errors.unformal".tr();
                               }
                               return null;
@@ -137,11 +137,9 @@ class _LoginPageState extends State<LoginPage> {
                             validator: (v) {
                               if (v.isEmpty) {
                                 return "login.password.errors.empty".tr();
-                              } else if (v.length < 8) {
-                                return "login.password.errors.minimum".tr();
                               }
-                              // else if (double.parse(v, (e) => null) == null) {
-                              //   return "login.password.errors.unformal".tr();
+                              //  else if (v.length < 8) {
+                              //   return "login.password.errors.minimum".tr();
                               // }
                               return null;
                             },

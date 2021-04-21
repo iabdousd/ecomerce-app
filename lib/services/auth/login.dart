@@ -21,14 +21,11 @@ Future<int> signin(String username, String password) async {
     },
   );
   if (response.status == 200) {
-    print(response.body);
+    print(200);
     mv.jwtToken = 'Bearer ' + response.body['access'];
-    await FetchInspector().initialize();
     FetcherResponse detailsResponse = await FetchInspector().get(
       path: GET_USER_END_POINT,
     );
-    print(detailsResponse.status);
-    print(detailsResponse.body);
 
     if (detailsResponse.status == 200) {
       final storage = new FlutterSecureStorage();
@@ -45,6 +42,8 @@ Future<int> signin(String username, String password) async {
     );
     return -1;
   }
+  print('No 200 :(');
+  print(response.status);
   toggleLoading(state: false);
   showFlushBar(
     title: 'login.messages.error-title'.tr(),

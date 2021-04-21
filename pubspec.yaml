@@ -12,25 +12,33 @@ dependencies:
   flutter:
     sdk: flutter
 
-  firebase_messaging: ^7.0.3
-  dio: ^3.0.10
-  hive: ^1.4.4+1
-  hive_flutter: ^0.3.1
-  bloc: ^6.1.1
-  flutter_bloc: ^6.1.1
-  flutter_spinkit: ^4.1.2+1
-  shared_preferences: ^0.5.12+4
-  url_launcher: ^5.7.10
-  connectivity: ^2.0.2
-  cached_network_image: ^2.4.1
-  path_provider: ^1.6.24
-  location: ^3.1.0
-  font_awesome_flutter: ^8.11.0
-  easy_localization: ^2.3.3
-  flutter_secure_storage: ^3.3.5
+  # FIERBASE
+  firebase_messaging: ^9.1.2
+
+  # STORAGE RELATED
+  path_provider: ^2.0.1
+  hive: ^2.0.4
+  hive_flutter: ^1.0.0
+  shared_preferences: ^2.0.5
+  flutter_secure_storage: ^4.1.0
+
+  # STATE MANAGEMENT
+  bloc: ^7.0.0
+  flutter_bloc: ^7.0.0
+
+  # TOOLS
+  get: ^4.1.4
+  http: ^0.13.1
+  connectivity: ^3.0.3
+  url_launcher: ^6.0.3
+  location: ^4.1.1
+  easy_localization: ^3.0.0
+
+  # GRAPHIC RELATED
+  flutter_spinkit: ^5.0.0
+  font_awesome_flutter: ^9.0.0
+  google_fonts: ^2.0.0
   curved_navigation_bar: ^0.3.7
-  google_fonts: 1.1.2
-  get: ^3.26.0
 
   cupertino_icons: ^1.0.0
 

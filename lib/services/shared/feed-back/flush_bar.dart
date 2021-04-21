@@ -11,8 +11,8 @@ showFlushBar({
 }) {
   Get.showSnackbar(
     GetBar(
-      title: title,
-      message: message,
+      title: title ?? ' ',
+      message: message ?? 'No Message',
       icon: icon,
       duration: Duration(seconds: 3),
     ),

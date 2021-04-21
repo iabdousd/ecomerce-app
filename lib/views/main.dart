@@ -24,10 +24,7 @@ class _MainViewState extends State<MainView> {
     String jwtToken = await storage.read(key: jwtKey);
     if (jwtToken != null && jwtToken != '') {
       mv.jwtToken = jwtToken;
-      await FetchInspector().initialize();
       await fetchUser();
-    } else {
-      await FetchInspector().initialize();
     }
   }
 

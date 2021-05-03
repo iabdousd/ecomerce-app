@@ -106,17 +106,17 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.3.7"
-  easy_localization:
+  dio:
     dependency: "direct main"
     description:
-      name: easy_localization
+      name: dio
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.0"
   easy_localization:
     dependency: "direct main"
     description:
-      name: easy_logger
+      name: easy_localization
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.0"
@@ -267,7 +267,7 @@ packages:
     source: hosted
     version: "1.0.0"
   http:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: http
       url: "https://pub.dartlang.org"

@@ -1,10 +1,11 @@
-import 'dart:convert';
 import 'dart:io';
 
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:rimlines/configs/ApiConfig.dart';
 import 'package:rimlines/models/inspectors/fetcher_response.dart';
+
+Dio dio;
 
 class FetchInspector {
   initialize(String jwtToken) async {
@@ -34,17 +35,11 @@ class FetchInspector {
             params.values.toList()[i].toString() +
             (i == (params.length - 1) ? '' : '&');
       }
-      var res = await http.get(
-        Uri.parse(path + p),
-        headers: {
-          HttpHeaders.authorizationHeader: mv.jwtToken,
-          HttpHeaders.acceptCharsetHeader: 'utf-8',
-          HttpHeaders.acceptEncodingHeader: 'utf-8',
-          HttpHeaders.contentTypeHeader: 'application/json'
-        },
+      var res = await dio.get(
+        path + p,
       );
-      var body = json.decode(res.body);
-      return FetcherResponse(status: res.statusCode, body: body);
+      // var body = json.decode(res.body);
+      return FetcherResponse(status: res.statusCode, body: res.data);
     } on SocketException {
       return FetcherResponse.noInternet();
     } on DioError catch (e) {
@@ -79,21 +74,14 @@ class FetchInspector {
             params.values.toList()[i] +
             (i == (params.length - 1) ? '' : '&');
       }
-      var res = await http.post(
-        Uri.parse(path + p),
-        body: body is String ? body : json.encode(body),
-        headers: {
-          HttpHeaders.authorizationHeader: mv.jwtToken,
-          HttpHeaders.acceptCharsetHeader: 'utf-8',
-          HttpHeaders.acceptEncodingHeader: 'utf-8',
-          HttpHeaders.contentTypeHeader: 'application/json'
-        },
+      var res = await dio.post(
+        path + p,
+        data: body is String ? body : body,
       );
 
-      var responseBody = json.decode(res.body);
       return FetcherResponse(
         status: res.statusCode,
-        body: responseBody,
+        body: res.data,
       );
     } on SocketException {
       return FetcherResponse.noInternet();

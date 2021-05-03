@@ -61,29 +61,30 @@ class _MainViewState extends State<MainView> {
     return Container(
       child: Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
-        body: Center(
-          child: AnimatedOpacity(
-            opacity: showLogo ? 1 : 0,
-            onEnd: () {
-              if (ready) {
-                if (_bloc.state.jwtToken != null)
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => HomePage(),
-                    ),
-                  );
-                else
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => LoginPage(),
-                    ),
-                  );
-              }
-            },
-            duration: Duration(milliseconds: 750),
-            child: Image.asset(
-              'assets/images/logo.png',
-              width: 120,
+        body: BlocListener<AuthBloc, AuthState>(
+          listener: (context, state) {
+            if (_bloc.state.jwtToken != null && state.user != null) {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => HomePage(),
+                ),
+              );
+            } else if (!state.loading)
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => LoginPage(),
+                ),
+              );
+          },
+          child: Center(
+            child: AnimatedOpacity(
+              opacity: showLogo ? 1 : 0,
+              onEnd: () {},
+              duration: Duration(milliseconds: 750),
+              child: Image.asset(
+                'assets/images/logo.png',
+                width: 120,
+              ),
             ),
           ),
         ),

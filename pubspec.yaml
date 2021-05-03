@@ -11,6 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+<<<<<<< HEAD
   bloc: ^7.0.0
   connectivity: ^3.0.3
   cupertino_icons: ^1.0.2
@@ -30,6 +31,38 @@ dependencies:
   path_provider: ^2.0.1
   shared_preferences: ^2.0.5
   url_launcher: ^6.0.3
+=======
+
+  # FIERBASE
+  firebase_messaging: ^9.1.2
+
+  # STORAGE RELATED
+  path_provider: ^2.0.1
+  hive: ^2.0.4
+  hive_flutter: ^1.0.0
+  shared_preferences: ^2.0.5
+  flutter_secure_storage: ^4.1.0
+
+  # STATE MANAGEMENT
+  bloc: ^7.0.0
+  flutter_bloc: ^7.0.0
+
+  # TOOLS
+  get: ^4.1.4
+  http: ^0.13.1
+  connectivity: ^3.0.3
+  url_launcher: ^6.0.3
+  location: ^4.1.1
+  easy_localization: ^3.0.0
+
+  # GRAPHIC RELATED
+  flutter_spinkit: ^5.0.0
+  font_awesome_flutter: ^9.0.0
+  google_fonts: ^2.0.0
+  curved_navigation_bar: ^0.3.7
+
+  cupertino_icons: ^1.0.0
+>>>>>>> de715a85215a5b78d558feff94842bab146a4667
 
 dev_dependencies:
   flutter_test:

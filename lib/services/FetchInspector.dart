@@ -1,12 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:dio/dio.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 import 'package:rimlines/configs/ApiConfig.dart';
 import 'package:rimlines/models/inspectors/fetcher_response.dart';
-
-Dio dio;
 
 class FetchInspector {
   initialize(String jwtToken) async {
@@ -36,10 +34,17 @@ class FetchInspector {
             params.values.toList()[i].toString() +
             (i == (params.length - 1) ? '' : '&');
       }
-      var res = await dio.get(
-        path + p,
+      var res = await http.get(
+        Uri.parse(path + p),
+        headers: {
+          HttpHeaders.authorizationHeader: mv.jwtToken,
+          HttpHeaders.acceptCharsetHeader: 'utf-8',
+          HttpHeaders.acceptEncodingHeader: 'utf-8',
+          HttpHeaders.contentTypeHeader: 'application/json'
+        },
       );
-      return FetcherResponse(status: res.statusCode, body: res.data);
+      var body = json.decode(res.body);
+      return FetcherResponse(status: res.statusCode, body: body);
     } on SocketException {
       return FetcherResponse.noInternet();
     } on DioError catch (e) {
@@ -57,6 +62,7 @@ class FetchInspector {
             : e.response?.data.toString() ?? '',
       );
     } catch (e) {
+      print(e);
       return FetcherResponse.unknownReason();
     }
   }
@@ -73,13 +79,21 @@ class FetchInspector {
             params.values.toList()[i] +
             (i == (params.length - 1) ? '' : '&');
       }
-      var res = await dio.post(
-        path + p,
-        data: body is String ? body : json.encode(body),
+      var res = await http.post(
+        Uri.parse(path + p),
+        body: body is String ? body : json.encode(body),
+        headers: {
+          HttpHeaders.authorizationHeader: mv.jwtToken,
+          HttpHeaders.acceptCharsetHeader: 'utf-8',
+          HttpHeaders.acceptEncodingHeader: 'utf-8',
+          HttpHeaders.contentTypeHeader: 'application/json'
+        },
       );
+
+      var responseBody = json.decode(res.body);
       return FetcherResponse(
         status: res.statusCode,
-        body: res.data,
+        body: responseBody,
       );
     } on SocketException {
       return FetcherResponse.noInternet();
@@ -98,6 +112,7 @@ class FetchInspector {
             : e.response?.data.toString() ?? '',
       );
     } catch (e) {
+      print(e);
       return FetcherResponse.unknownReason();
     }
   }

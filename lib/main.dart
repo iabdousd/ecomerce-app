@@ -13,6 +13,8 @@ import 'constants/auth/main.dart';
 import 'models/auth/auth_state.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
   await initWorders();
   final storage = new FlutterSecureStorage();
   String jwtToken = await storage.read(key: jwtKey);

@@ -1,7 +1,7 @@
 const BASE_URL = 'http://185.143.45.35:2000';
 
-const AUTH_PATH = '/api';
-const API_PATH = '';
+const AUTH_PATH = BASE_URL + '/api';
+const API_PATH = BASE_URL + '';
 const CUSTOMERS_PATH = API_PATH + '/customers';
 
 const LOGIN_END_POINT = AUTH_PATH + '/token/';

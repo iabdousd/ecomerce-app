@@ -4,7 +4,7 @@ class Transaction {
   double amount;
   DateTime date;
   String type;
-  String customer;
+  int customer;
 
   Transaction({
     this.id,
@@ -16,9 +16,7 @@ class Transaction {
   });
 
   Transaction.fromJson(Map<String, dynamic> jsonObject) {
-    this.id = int.parse(jsonObject['url']
-        .toString()
-        .split('/')[jsonObject['url'].toString().split('/').length - 2]);
+    this.id = jsonObject['id'];
     this.title = jsonObject['title'] ?? '';
     this.amount = jsonObject['amount'];
     this.date = DateTime.parse(jsonObject['date']);

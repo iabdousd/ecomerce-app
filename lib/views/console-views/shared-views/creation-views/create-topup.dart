@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:rimlines/services/creation/topup.dart';
-import 'package:rimlines/services/shared/feed-back/loader.dart';
 
 class CreateTopup extends StatefulWidget {
   @override
@@ -97,13 +96,12 @@ class _CreateTopupState extends State<CreateTopup> {
                         ],
                       ),
                     ),
-                    FlatButton(
-                      onPressed: () => submitTopup(),
-                      child: Text('form.topup.submit.button-title'.tr()),
-                      color: Theme.of(context).primaryColor,
-                      textColor: Colors.white,
-                      padding: EdgeInsets.all(16.0),
-                      minWidth: MediaQuery.of(context).size.width - 18,
+                    Container(
+                      width: MediaQuery.of(context).size.width - 18,
+                      child: ElevatedButton(
+                        onPressed: () => submitTopup(),
+                        child: Text('form.topup.submit.button-title'.tr()),
+                      ),
                     )
                   ],
                 ),

@@ -1,47 +1,12 @@
-import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rimlines/bloc/transaction/transaction_bloc.dart';
 
-import 'package:rimlines/configs/ApiConfig.dart';
-import 'package:rimlines/models/inspectors/fetcher_response.dart';
-import 'package:rimlines/models/transaction/transaction.dart';
-import 'package:rimlines/services/FetchInspector.dart';
+import 'package:rimlines/models/transaction/transaction_state.dart';
 import 'package:rimlines/widgets/transaction/transaction_widget.dart';
 
-List<Transaction> transactionsList = [];
-
-class TransactionList extends StatefulWidget {
-  final String order;
-
-  const TransactionList({Key key, @required this.order}) : super(key: key);
-  @override
-  _TransactionListState createState() => _TransactionListState();
-}
-
-class _TransactionListState extends State<TransactionList> {
-  StreamController<List<Transaction>> transactionsListController =
-      StreamController();
-
-  void fetchTransactions() async {
-    FetcherResponse response = await FetchInspector().get(
-      path: LIST_TOPUPS_END_POINT + '/${widget.order}',
-    );
-    if (response.status == 200) {
-      transactionsList += List<Transaction>.from(response.body
-          .map(
-            (e) => Transaction.fromJson(e),
-          )
-          .toList());
-      transactionsListController.add(transactionsList);
-    }
-  }
-
-  @override
-  void initState() {
-    if (transactionsList.length == 0) fetchTransactions();
-    super.initState();
-  }
-
+class TransactionList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -84,16 +49,35 @@ class _TransactionListState extends State<TransactionList> {
                   ),
             ),
           ),
-          StreamBuilder<List<Transaction>>(
-            stream: transactionsListController.stream,
-            builder: (context, snapshot) {
+          BlocBuilder<TransactionBloc, TransactionState>(
+            bloc: context.read<TransactionBloc>(),
+            builder: (context, state) {
+              if (state.loading && (state.transactions ?? []).length == 0) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+
               return ListView.builder(
-                itemCount: transactionsList.length,
+                itemCount: state.transactions.length,
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
+                  if (index == state.transactions.length - 1)
+                    return Column(
+                      children: [
+                        TransactionWidget(
+                          transaction: state.transactions[index],
+                        ),
+                        if (state.loading)
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: CircularProgressIndicator(),
+                          ),
+                      ],
+                    );
                   return TransactionWidget(
-                    transaction: transactionsList[index],
+                    transaction: state.transactions[index],
                   );
                 },
               );

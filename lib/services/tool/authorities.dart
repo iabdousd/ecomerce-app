@@ -1,12 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import 'package:rimlines/configs/memory_veriables.dart';
 import 'package:rimlines/models/tool/tool_item.dart';
 import 'package:rimlines/services/auth/logout.dart';
 
-getToolItems() {
-  switch (currentUser.role.rolename) {
+getToolItems(String rolename) {
+  switch (rolename) {
     case "Admin":
       {
         return [

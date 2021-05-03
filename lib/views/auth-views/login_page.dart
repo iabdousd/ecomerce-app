@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rimlines/bloc/auth/auth_bloc.dart';
+import 'package:rimlines/models/auth/auth_state.dart';
 import 'package:rimlines/services/auth/login.dart';
 import 'package:rimlines/views/main-views/main.dart';
 
@@ -11,20 +14,34 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
 
+  AuthBloc _bloc;
+
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   void login() async {
     if (!_formKey.currentState.validate()) return;
-    int status =
+    List<String> tokens =
         await signin(_usernameController.text, _passwordController.text);
-    if (status == 0) {
+    if (tokens != null) {
+      _bloc.add(Authorized(
+        jwtToken: tokens[0],
+        refreshToken: tokens[1],
+      ));
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (context) => HomePage(),
         ),
       );
-    } else {}
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      _bloc = BlocProvider.of<AuthBloc>(context);
+    });
   }
 
   @override

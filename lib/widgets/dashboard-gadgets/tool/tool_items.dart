@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:rimlines/bloc/auth/auth_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:rimlines/models/tool/tool_item.dart';
 import 'package:rimlines/services/tool/authorities.dart';
@@ -15,7 +17,7 @@ class _ToolItemsState extends State<ToolItems> {
   List<ToolItemData> items;
 
   initItems() {
-    items = getToolItems();
+    items = getToolItems(context.watch<AuthBloc>().state.user.role.rolename);
   }
 
   @override

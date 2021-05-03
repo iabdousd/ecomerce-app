@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rimlines/bloc/auth/auth_bloc.dart';
+import 'package:rimlines/bloc/transaction/transaction_bloc.dart';
 import 'package:rimlines/models/creation/creation_item.dart';
 import 'package:rimlines/services/creation/authorities.dart';
 import 'creation_item.dart';
@@ -14,12 +17,18 @@ class _CreationItemsState extends State<CreationItems> {
   List<CreationItemData> items;
 
   initItems() {
-    items = getCreationItems();
+    setState(() {
+      items = getCreationItems(
+        context.read<AuthBloc>().state.user.role.rolename,
+      );
+    });
   }
 
   @override
   void initState() {
-    initItems();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      initItems();
+    });
     super.initState();
   }
 
@@ -29,13 +38,19 @@ class _CreationItemsState extends State<CreationItems> {
       margin: EdgeInsets.symmetric(vertical: 8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: items
-            .map((e) => CreationItemWidget(
-                  itemName: e.name,
-                  nextPage: e.nextView,
-                  icon: e.icon,
-                ))
-            .toList(),
+        children: items == null
+            ? [
+                Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ]
+            : items
+                .map((e) => CreationItemWidget(
+                      itemName: e.name,
+                      nextPage: e.nextView,
+                      icon: e.icon,
+                    ))
+                .toList(),
       ),
     );
   }

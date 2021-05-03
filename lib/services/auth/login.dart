@@ -11,7 +11,7 @@ import 'package:rimlines/services/FetchInspector.dart';
 import 'package:rimlines/services/shared/feed-back/flush_bar.dart';
 import 'package:rimlines/services/shared/feed-back/loader.dart';
 
-Future<int> signin(String username, String password) async {
+Future<List<String>> signin(String username, String password) async {
   toggleLoading(state: true);
   FetcherResponse response = await FetchInspector().post(
     path: LOGIN_END_POINT,
@@ -21,35 +21,14 @@ Future<int> signin(String username, String password) async {
     },
   );
   if (response.status == 200) {
-    print(response.body);
-    mv.jwtToken = 'Bearer ' + response.body['access'];
-    await FetchInspector().initialize();
-    FetcherResponse detailsResponse = await FetchInspector().get(
-      path: GET_USER_END_POINT,
-    );
-    print(detailsResponse.status);
-    print(detailsResponse.body);
-
-    if (detailsResponse.status == 200) {
-      final storage = new FlutterSecureStorage();
-      await storage.write(key: jwtKey, value: mv.jwtToken);
-      currentUser = User.fromJson(detailsResponse.body);
-      toggleLoading(state: false);
-      return 0;
-    }
-    mv.jwtToken = null;
-    toggleLoading(state: false);
-    showFlushBar(
-      title: 'login.messages.error-title'.tr(),
-      message: response.message,
-    );
-    return -1;
+    // await FetchInspector().initialize();
+    return ['Bearer ' + response.body['access'], response.body['access']];
   }
   toggleLoading(state: false);
   showFlushBar(
     title: 'login.messages.error-title'.tr(),
-    message: response.message,
+    message: response.message ?? '',
   );
 
-  return -2;
+  return null;
 }

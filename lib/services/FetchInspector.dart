@@ -4,19 +4,18 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:rimlines/configs/ApiConfig.dart';
-import 'package:rimlines/configs/memory_veriables.dart' as mv;
 import 'package:rimlines/models/inspectors/fetcher_response.dart';
 
 Dio dio;
 
 class FetchInspector {
-  initialize() async {
+  initialize(String jwtToken) async {
     dio = Dio(
       BaseOptions(
         baseUrl: BASE_URL,
         receiveDataWhenStatusError: true,
         headers: {
-          HttpHeaders.authorizationHeader: mv.jwtToken,
+          HttpHeaders.authorizationHeader: jwtToken,
           HttpHeaders.acceptCharsetHeader: 'utf-8',
           HttpHeaders.acceptEncodingHeader: 'utf-8',
         },
@@ -30,7 +29,6 @@ class FetchInspector {
     isBytes = false,
   }) async {
     try {
-      print(dio.options.headers);
       String p = params.length > 0 ? "?" : "";
       for (int i = 0; i < params.length; i++) {
         p += params.keys.toList()[i] +
@@ -46,6 +44,7 @@ class FetchInspector {
       return FetcherResponse.noInternet();
     } on DioError catch (e) {
       print('DIO ERROR: ');
+      print(e?.message);
       print(e?.response?.statusCode);
       print(e?.response?.data);
       return FetcherResponse(
@@ -86,6 +85,7 @@ class FetchInspector {
       return FetcherResponse.noInternet();
     } on DioError catch (e) {
       print('DIO ERROR: ');
+      print(e?.message);
       print(e?.response?.statusCode);
       print(e?.response?.data);
       return FetcherResponse(

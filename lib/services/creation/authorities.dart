@@ -68,12 +68,13 @@ final adminItems = [
   // ),
 ];
 
-List<CreationItemData> getCreationItems() {
-  switch (currentUser.role.rolename) {
+List<CreationItemData> getCreationItems(String rolename) {
+  print(rolename);
+  switch (rolename.toUpperCase()) {
     case "DEPOSIT_AGENT":
       {
         // return sharedItems + depositAgentItems;
-        return sharedItems + customersAgentItems;
+        return sharedItems + depositAgentItems;
       }
     case "STORE_AGENT":
       {
